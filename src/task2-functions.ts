@@ -1,12 +1,39 @@
-// src/tasks/task2-functions.ts
-import { Book, Catalog, BookFilter } from './task1-types';
+// Задание 2: Функции работы с каталогом
+// Управление данными без мутации исходных объектов (иммутабельность)
 
-export function formatBook(book: Book): string {
-  // Вернуть строку: "Title (Year): Authors"
-  // Например: "TypeScript Guide (2023): John Doe, Jane Smith"
+// TODO 0: Импортируйте типы Book и Catalog из файла task1-types.ts
+
+
+// TODO 1: Добавьте книгу в каталог
+// Параметры:
+//   - catalog (Catalog): исходный каталог
+//   - book (Book): книга для добавления
+// Возвращает: новый объект Catalog, содержащий все старые книги и новую
+// Подсказка: используйте оператор расширения (spread) `...`, чтобы создать новый объект, 
+// а не изменять существующий. Ключом должно быть свойство book.id.
+export function addBook(catalog: Catalog, book: Book): Catalog {
+
+  return  {
+   // TODO: напишите код здесь
+  };
 }
 
-export function calculateAverageYear(books: Book[]): number {
-  // Вернуть средний год издания
-  // Если книг нет — вернуть 0
+// TODO 2: Удалите книгу из каталога по id
+// Параметры:
+//   - catalog (Catalog): исходный каталог
+//   - id (string): идентификатор книги для удаления
+// Возвращает: новый объект Catalog без указанной книги
+//  Подсказка: используйте деструктуризацию объекта с вычисляемым ключом и rest-параметром:
+
+export function removeBook(catalog: Catalog, id: string): Catalog {
+  // TODO: напишите код здесь
+}
+
+// TODO 3: Найдите книгу в каталоге по id
+// Параметры:
+//   - catalog (Catalog): исходный каталог
+//   - id (string): идентификатор искомой книги
+// Возвращает: объект Book, если книга найдена, или undefined, если её нет
+export function getBook(catalog: Catalog, id: string): Book | undefined {
+ // TODO: напишите код здесь
 }
