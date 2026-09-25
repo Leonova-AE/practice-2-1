@@ -1,7 +1,17 @@
 // Задание 1: Интерфейсы и типы
 // Описание модели каталога книг
 
-import type { Book } from "../types";
+export interface Book {
+  readonly id: string;
+  title: string;
+  authors: string[];
+  year?: number;
+  rating?: number;
+}
+
+export type Catalog = Record<string, Book>;
+
+export type BookFilter = (book: Book) => boolean;
 
 // Формат: "Title (Year) — Authors"
 // Если year не указан — пропустить скобки
