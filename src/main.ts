@@ -1,15 +1,15 @@
 import './styles.css';
-import { Book } from './types';
-import { formatBook } from './tasks/task2-functions';
-import { applyFilters, filterByAuthor, filterByMinYear } from './tasks/task3-filters';
+import { Book, Catalog, BookFilter, formatBook } from './task1-types';
+import { addBook } from './task2-functions';
+import { applyFilters, filterByAuthor, filterByMinYear } from './task3-filters';
+import { createBookFromForm } from './task4-integration';
 
 // Готовые данные для старта
-const initialBooks: Book[] = [
-  { id: '1', title: 'TypeScript Guide', authors: ['John Doe'], year: 2023 },
-  { id: '2', title: 'JavaScript Basics', authors: ['Jane Smith'], year: 2022 },
-];
+let catalog: Catalog = {
+  '1': { id: '1', title: 'TypeScript Guide', authors: ['John Doe'], year: 2023 },
+  '2': { id: '2', title: 'JavaScript Basics', authors: ['Jane Smith'], year: 2022 },
+};
 
-// TODO: Студенты пишут код ниже
 const bookList = document.getElementById('bookList')!;
 
 function renderBooks(books: Book[]) {
@@ -19,15 +19,33 @@ function renderBooks(books: Book[]) {
 }
 
 // Отрисовать начальные книги
-renderBooks(initialBooks);
+renderBooks(Object.values(catalog));
 
 // Обработчик формы
-document.getElementById('bookForm')?.addEventListener('submit', (e) => {
+const bookForm = document.getElementById('bookForm') as HTMLFormElement;
+bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  // TODO: Получить данные из формы, добавить книгу, перерисовать
+
+  const formData = new FormData(bookForm);
+  const newBook = createBookFromForm(formData);
+
+  catalog = addBook(catalog, newBook);
+  bookForm.reset();
+  renderBooks(Object.values(catalog));
 });
 
 // Обработчик фильтров
 document.getElementById('applyFilters')?.addEventListener('click', () => {
-  // TODO: Применить фильтры, перерисовать
+  const authorInput = document.getElementById('filterAuthor') as HTMLInputElement;
+  const yearInput = document.getElementById('filterYear') as HTMLInputElement;
+
+  const filters: BookFilter[] = [];
+  if (authorInput.value) {
+    filters.push(filterByAuthor(authorInput.value));
+  }
+  if (yearInput.value) {
+    filters.push(filterByMinYear(Number(yearInput.value)));
+  }
+
+  renderBooks(applyFilters(Object.values(catalog), filters));
 });
