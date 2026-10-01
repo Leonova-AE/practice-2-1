@@ -34,6 +34,8 @@ bookForm.addEventListener('submit', (e) => {
   renderBooks(Object.values(catalog));
 });
 
+
+//вот бы оно сохранилось
 // Обработчик фильтров
 document.getElementById('applyFilters')?.addEventListener('click', () => {
   const authorInput = document.getElementById('filterAuthor') as HTMLInputElement;
